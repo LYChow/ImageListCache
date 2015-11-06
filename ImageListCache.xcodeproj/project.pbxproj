@@ -17,6 +17,7 @@
 		28816E481BEBC20700B37D3D /* AppTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28816E451BEBC20700B37D3D /* AppTableViewController.m */; };
 		28816E491BEBC20700B37D3D /* MCApps.m in Sources */ = {isa = PBXBuildFile; fileRef = 28816E471BEBC20700B37D3D /* MCApps.m */; };
 		28816E4B1BEBC26600B37D3D /* apps.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28816E4A1BEBC26600B37D3D /* apps.plist */; };
+		4F823A6A1BEC768100713BED /* MCOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F823A691BEC768100713BED /* MCOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,8 @@
 		28816E461BEBC20700B37D3D /* MCApps.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCApps.h; sourceTree = "<group>"; };
 		28816E471BEBC20700B37D3D /* MCApps.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCApps.m; sourceTree = "<group>"; };
 		28816E4A1BEBC26600B37D3D /* apps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = apps.plist; sourceTree = "<group>"; };
+		4F823A681BEC768100713BED /* MCOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCOperation.h; sourceTree = "<group>"; };
+		4F823A691BEC768100713BED /* MCOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +115,8 @@
 				28816E451BEBC20700B37D3D /* AppTableViewController.m */,
 				28816E461BEBC20700B37D3D /* MCApps.h */,
 				28816E471BEBC20700B37D3D /* MCApps.m */,
+				4F823A681BEC768100713BED /* MCOperation.h */,
+				4F823A691BEC768100713BED /* MCOperation.m */,
 				28816E4A1BEBC26600B37D3D /* apps.plist */,
 				28816E1A1BEBC12300B37D3D /* Main.storyboard */,
 				28816E1D1BEBC12300B37D3D /* Assets.xcassets */,
@@ -279,6 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F823A6A1BEC768100713BED /* MCOperation.m in Sources */,
 				28816E161BEBC12300B37D3D /* AppDelegate.m in Sources */,
 				28816E131BEBC12300B37D3D /* main.m in Sources */,
 				28816E491BEBC20700B37D3D /* MCApps.m in Sources */,

@@ -22,14 +22,15 @@
  *4.下载数据(成功 or 失败)均把当前url对应的operation移除NSDictionary
   *a.Image下载成功时把image加入本地的NSDictionary(images),下载的图片根据url存在本地的沙盒内
   *b.Image下载失败时,在本地的NSDictionary中找不到相应的Image,重新创建operation 执行下载操作,可以多次请求失败(请求超时)的资源
- *
+ *5.把耗时的operation进行封装 
  */
 
 #define MCImageCachePath(url)  [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:[url lastPathComponent]]
 
 #import "AppTableViewController.h"
 #import "MCApps.h"
-@interface AppTableViewController ()
+#import "MCOperation.h"
+@interface AppTableViewController ()<MCOperationDelegate>
 @property(nonatomic,strong) NSMutableArray  *apps;
 
 /**
@@ -159,52 +160,18 @@
 
     
     
-    NSBlockOperation *operation =[self.operations objectForKey:icon];
+    MCOperation *operation =[self.operations objectForKey:icon];
     if (operation) return;
     
-    __weak typeof(self)  vc =self;
+    operation =[[MCOperation alloc]init];
+    operation.iconUrl=icon;
+    operation.indexPath=indexPath;
+    operation.delegate=self;
     
-
-        operation =[NSBlockOperation blockOperationWithBlock:^{
-            NSURL *url = [NSURL URLWithString:icon];
-            NSData *data = [NSData dataWithContentsOfURL:url]; // 下载
-            UIImage *image = [UIImage imageWithData:data]; // NSData -> UIImage
-            
-            
-            [[NSOperationQueue mainQueue]addOperationWithBlock:^{
-                if (image) {
-                    vc.images[icon]=image;
-                    
-                    NSString *imagePath =MCImageCachePath(icon);
-                    
-                    //不同类型的image进行转换
-                    NSData *data;
-                    if ([[[[icon lastPathComponent] componentsSeparatedByString:@"."] lastObject] isEqualToString:@"png"])
-                    {
-                        data =UIImagePNGRepresentation(image);
-                    }
-                    else if([[[[icon lastPathComponent] componentsSeparatedByString:@"."] lastObject] isEqualToString:@"jpg"])
-                    {
-                        data =UIImageJPEGRepresentation(image, 1.0);
-                    }
-                    
-                    [data writeToFile:imagePath atomically:YES];
-                    
-                    
-                    [vc.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                }
-            }];
-            
-            
-            //下载(成功or 失败)之后把operation移除
-            [vc.operations removeObjectForKey:icon];
-        }];
-        
-        //把operation加入queue,防止重复下载
-        self.operations[icon]= operation;
-        
-        [self.queue addOperation:operation];
-
+    //把operation加入queue,防止重复下载
+    self.operations[icon]= operation;
+    
+    [self.queue addOperation:operation];
     
 }
 
@@ -235,6 +202,34 @@
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     [self.queue setSuspended:NO];
+}
+
+
+#pragma -mark operationDelegate数据下载完成时回调
+-(void)operation:(MCOperation *)operation image:(UIImage *)image
+{
+    //下载(成功or 失败)之后把operation移除
+    [self.operations removeObjectForKey:operation.iconUrl];
+
+    
+    self.images[operation.iconUrl]=image;
+    NSString *imagePath =MCImageCachePath(operation.iconUrl);
+    
+    //不同类型的image进行转换
+    NSData *data;
+    if ([[[[operation.iconUrl lastPathComponent] componentsSeparatedByString:@"."] lastObject] isEqualToString:@"png"])
+    {
+        data =UIImagePNGRepresentation(image);
+    }
+    else if([[[[operation.iconUrl lastPathComponent] componentsSeparatedByString:@"."] lastObject] isEqualToString:@"jpg"])
+    {
+        data =UIImageJPEGRepresentation(image, 1.0);
+    }
+    
+    [data writeToFile:imagePath atomically:YES];
+    
+    
+    [self.tableView reloadRowsAtIndexPaths:@[operation.indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
 @end
