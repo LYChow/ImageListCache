@@ -9,15 +9,23 @@
 
 /**
  *function:
- *未下载完成时能够显示placeHolder图片、不重复下载、重新下载下载失败的图片
+ *未下载完成时能够显示placeHolder图片、不重复下载、重新下载下载失败的图片,对网络请求的数据进行沙盒缓存
  *思路:
- *1.请求的数据成功之后存储在本地的NSDictionary,以url为key进行显示
- *2.为了防止operation重复执行,创建时以url为key存储在本地NSDictionary,刷新tableView进 行判断,防止重复执行
- *3.下载数据(成功 or 失败)均把当前url对应的operation移除NSDictionary 
-   a.Image下载成功时把image加入本地的NSDictionary,下次刷新TableView时从本地获取Image不再创建operation
-   b.Image下载失败时,在本地的NSDictionary中找不到相应的Image,重新创建operation 执行下载操作,可以多次请求失败(请求超时)的资源
+ *
+ *1.加载image通过url(key) 在内存中images(a.存在 or b.不存在)
+ *a.存在--->直接显示在cell上显示图片
+ *b.不存在----->在本地沙盒里是否存在---->(b1.存在  or b2.不存在)
+ *b1.从user的caches文件夹获取image在cell上显示
+ *b2.执行步骤2,请求数据
+ *2.请求的数据成功之后存储在本地的NSDictionary,以url为key进行显示
+ *3.为了防止operation重复执行,创建时以url为key存储在本地NSDictionary(operations),刷新tableView进 行判断,防止重复执行
+ *4.下载数据(成功 or 失败)均把当前url对应的operation移除NSDictionary
+  *a.Image下载成功时把image加入本地的NSDictionary(images),下载的图片根据url存在本地的沙盒内
+  *b.Image下载失败时,在本地的NSDictionary中找不到相应的Image,重新创建operation 执行下载操作,可以多次请求失败(请求超时)的资源
  *
  */
+
+#define MCImageCachePath(url)  [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:[url lastPathComponent]]
 
 #import "AppTableViewController.h"
 #import "MCApps.h"
@@ -106,16 +114,40 @@
     cell.detailTextLabel.text=appInfo.download;
     
     UIImage *image =[self.images objectForKey:appInfo.icon];
-    NSLog(@"%@",image);
+    //内存中存在Image
     if (image)
     {
         cell.imageView.image= image;
     }
     else
     {
-        cell.imageView.image =[UIImage imageNamed:@"placeholder"];
+        /**
+         *  去本地沙盒的缓存中获取image
+         *
+         *  @param NSCachesDirectory NSUserDomainMask当前程序用户所在路径
+         *  @param NSUserDomainMask
+         *  @param YES               ~/相当于  /users/apple  YES-->绝对路径
+         *
+         *  @return 文件的路径
+         */
+//        NSString *filePath =[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) lastObject];
+//        NSString *fileName =[appInfo.icon lastPathComponent];
+//        NSString *imagePath =[filePath stringByAppendingPathComponent:fileName];
         
-        [self downloadImageWithUrl:appInfo.icon indexPath:indexPath];
+        
+    
+        NSData *data =[NSData dataWithContentsOfFile:MCImageCachePath(appInfo.icon)];
+        //沙盒缓存存在图片
+        if (data)
+        {
+            cell.imageView.image =[UIImage imageWithData:data];
+        }
+        else
+        {
+        //沙盒不存在图片,请求网络数据
+            cell.imageView.image =[UIImage imageNamed:@"placeholder"];
+            [self downloadImageWithUrl:appInfo.icon indexPath:indexPath];
+        }
         
     }
    
@@ -132,7 +164,7 @@
     
     __weak typeof(self)  vc =self;
     
-    NSLog(@"%@",self.images);
+
         operation =[NSBlockOperation blockOperationWithBlock:^{
             NSURL *url = [NSURL URLWithString:icon];
             NSData *data = [NSData dataWithContentsOfURL:url]; // 下载
@@ -142,6 +174,23 @@
             [[NSOperationQueue mainQueue]addOperationWithBlock:^{
                 if (image) {
                     vc.images[icon]=image;
+                    
+                    NSString *imagePath =MCImageCachePath(icon);
+                    
+                    //不同类型的image进行转换
+                    NSData *data;
+                    if ([[[[icon lastPathComponent] componentsSeparatedByString:@"."] lastObject] isEqualToString:@"png"])
+                    {
+                        data =UIImagePNGRepresentation(image);
+                    }
+                    else if([[[[icon lastPathComponent] componentsSeparatedByString:@"."] lastObject] isEqualToString:@"jpg"])
+                    {
+                        data =UIImageJPEGRepresentation(image, 1.0);
+                    }
+                    
+                    [data writeToFile:imagePath atomically:YES];
+                    
+                    
                     [vc.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
                 }
             }];
@@ -180,12 +229,12 @@
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-
+    [self.queue setSuspended:YES];
 }
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-
+    [self.queue setSuspended:NO];
 }
 
 @end
