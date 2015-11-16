@@ -30,6 +30,9 @@
 #import "AppTableViewController.h"
 #import "MCApps.h"
 #import "MCOperation.h"
+
+#import "UIBarButtonItem+Extention.h"
+#import "LYLoginViewController.h"
 @interface AppTableViewController ()<MCOperationDelegate>
 @property(nonatomic,strong) NSMutableArray  *apps;
 
@@ -56,6 +59,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    
+    self.navigationItem.rightBarButtonItem =[UIBarButtonItem itemWithTarget:self action:@selector(login) image:@"icon_category_-1" highImage:@"icon_category_highlighted_-1"];
+}
+
+-(void)login
+{
+    LYLoginViewController *loginVC =[[LYLoginViewController alloc] initWithNibName:@"LYLoginViewController" bundle:nil];
+    [self.navigationController pushViewController:loginVC animated:YES];
 }
 
 -(NSOperationQueue *)queue

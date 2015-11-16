@@ -18,6 +18,12 @@
 		28816E491BEBC20700B37D3D /* MCApps.m in Sources */ = {isa = PBXBuildFile; fileRef = 28816E471BEBC20700B37D3D /* MCApps.m */; };
 		28816E4B1BEBC26600B37D3D /* apps.plist in Resources */ = {isa = PBXBuildFile; fileRef = 28816E4A1BEBC26600B37D3D /* apps.plist */; };
 		4F823A6A1BEC768100713BED /* MCOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F823A691BEC768100713BED /* MCOperation.m */; };
+		4FF63E101BF61D8F003B77DA /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF63E031BF61D8F003B77DA /* NSString+Hash.m */; };
+		4FF63E111BF61D8F003B77DA /* UIBarButtonItem+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF63E051BF61D8F003B77DA /* UIBarButtonItem+Extention.m */; };
+		4FF63E121BF61D8F003B77DA /* UIView+Extention.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF63E071BF61D8F003B77DA /* UIView+Extention.m */; };
+		4FF63E131BF61D8F003B77DA /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF63E0B1BF61D8F003B77DA /* Reachability.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		4FF63E141BF61D8F003B77DA /* LYLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4FF63E0E1BF61D8F003B77DA /* LYLoginViewController.m */; };
+		4FF63E151BF61D8F003B77DA /* LYLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4FF63E0F1BF61D8F003B77DA /* LYLoginViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +65,17 @@
 		28816E4A1BEBC26600B37D3D /* apps.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = apps.plist; sourceTree = "<group>"; };
 		4F823A681BEC768100713BED /* MCOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MCOperation.h; sourceTree = "<group>"; };
 		4F823A691BEC768100713BED /* MCOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MCOperation.m; sourceTree = "<group>"; };
+		4FF63E021BF61D8F003B77DA /* NSString+Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hash.h"; sourceTree = "<group>"; };
+		4FF63E031BF61D8F003B77DA /* NSString+Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hash.m"; sourceTree = "<group>"; };
+		4FF63E041BF61D8F003B77DA /* UIBarButtonItem+Extention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+Extention.h"; sourceTree = "<group>"; };
+		4FF63E051BF61D8F003B77DA /* UIBarButtonItem+Extention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+Extention.m"; sourceTree = "<group>"; };
+		4FF63E061BF61D8F003B77DA /* UIView+Extention.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Extention.h"; sourceTree = "<group>"; };
+		4FF63E071BF61D8F003B77DA /* UIView+Extention.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Extention.m"; sourceTree = "<group>"; };
+		4FF63E0A1BF61D8F003B77DA /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		4FF63E0B1BF61D8F003B77DA /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		4FF63E0D1BF61D8F003B77DA /* LYLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LYLoginViewController.h; sourceTree = "<group>"; };
+		4FF63E0E1BF61D8F003B77DA /* LYLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LYLoginViewController.m; sourceTree = "<group>"; };
+		4FF63E0F1BF61D8F003B77DA /* LYLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LYLoginViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +136,9 @@
 				4F823A691BEC768100713BED /* MCOperation.m */,
 				28816E4A1BEBC26600B37D3D /* apps.plist */,
 				28816E1A1BEBC12300B37D3D /* Main.storyboard */,
+				4FF63E011BF61D8F003B77DA /* Category */,
+				4FF63E081BF61D8F003B77DA /* Lib */,
+				4FF63E0C1BF61D8F003B77DA /* LoginViewController */,
 				28816E1D1BEBC12300B37D3D /* Assets.xcassets */,
 				28816E1F1BEBC12300B37D3D /* LaunchScreen.storyboard */,
 				28816E221BEBC12300B37D3D /* Info.plist */,
@@ -151,6 +171,46 @@
 				28816E381BEBC12300B37D3D /* Info.plist */,
 			);
 			path = ImageListCacheUITests;
+			sourceTree = "<group>";
+		};
+		4FF63E011BF61D8F003B77DA /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				4FF63E021BF61D8F003B77DA /* NSString+Hash.h */,
+				4FF63E031BF61D8F003B77DA /* NSString+Hash.m */,
+				4FF63E041BF61D8F003B77DA /* UIBarButtonItem+Extention.h */,
+				4FF63E051BF61D8F003B77DA /* UIBarButtonItem+Extention.m */,
+				4FF63E061BF61D8F003B77DA /* UIView+Extention.h */,
+				4FF63E071BF61D8F003B77DA /* UIView+Extention.m */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
+		4FF63E081BF61D8F003B77DA /* Lib */ = {
+			isa = PBXGroup;
+			children = (
+				4FF63E091BF61D8F003B77DA /* Reachability */,
+			);
+			path = Lib;
+			sourceTree = "<group>";
+		};
+		4FF63E091BF61D8F003B77DA /* Reachability */ = {
+			isa = PBXGroup;
+			children = (
+				4FF63E0A1BF61D8F003B77DA /* Reachability.h */,
+				4FF63E0B1BF61D8F003B77DA /* Reachability.m */,
+			);
+			path = Reachability;
+			sourceTree = "<group>";
+		};
+		4FF63E0C1BF61D8F003B77DA /* LoginViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4FF63E0D1BF61D8F003B77DA /* LYLoginViewController.h */,
+				4FF63E0E1BF61D8F003B77DA /* LYLoginViewController.m */,
+				4FF63E0F1BF61D8F003B77DA /* LYLoginViewController.xib */,
+			);
+			path = LoginViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,6 +319,7 @@
 				28816E4B1BEBC26600B37D3D /* apps.plist in Resources */,
 				28816E211BEBC12300B37D3D /* LaunchScreen.storyboard in Resources */,
 				28816E1E1BEBC12300B37D3D /* Assets.xcassets in Resources */,
+				4FF63E151BF61D8F003B77DA /* LYLoginViewController.xib in Resources */,
 				28816E1C1BEBC12300B37D3D /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,10 +346,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F823A6A1BEC768100713BED /* MCOperation.m in Sources */,
+				4FF63E101BF61D8F003B77DA /* NSString+Hash.m in Sources */,
 				28816E161BEBC12300B37D3D /* AppDelegate.m in Sources */,
 				28816E131BEBC12300B37D3D /* main.m in Sources */,
 				28816E491BEBC20700B37D3D /* MCApps.m in Sources */,
+				4FF63E141BF61D8F003B77DA /* LYLoginViewController.m in Sources */,
+				4FF63E111BF61D8F003B77DA /* UIBarButtonItem+Extention.m in Sources */,
 				28816E481BEBC20700B37D3D /* AppTableViewController.m in Sources */,
+				4FF63E131BF61D8F003B77DA /* Reachability.m in Sources */,
+				4FF63E121BF61D8F003B77DA /* UIView+Extention.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
